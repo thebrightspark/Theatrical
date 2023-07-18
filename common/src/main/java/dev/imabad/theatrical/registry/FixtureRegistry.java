@@ -1,7 +1,7 @@
 package dev.imabad.theatrical.registry;
 
 import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.Registries;
+import dev.architectury.registry.registries.RegistrarManager;
 import dev.imabad.theatrical.Theatrical;
 import dev.imabad.theatrical.api.Fixture;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ public abstract class FixtureRegistry {
 
     public static void buildRegistry(){
         if (registry == null) {
-            registry = Registries.get(Theatrical.MOD_ID)
+            registry = RegistrarManager.get(Theatrical.MOD_ID)
                     .<Fixture>builder(REGISTRY_KEY).build();
         }
     }

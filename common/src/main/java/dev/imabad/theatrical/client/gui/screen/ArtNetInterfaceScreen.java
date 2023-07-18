@@ -37,7 +37,8 @@ public class ArtNetInterfaceScreen extends Screen {
         this.ipAddress = new EditBox(this.font, xCenter + 40, yCenter + 50, 100, 20, (Component)Component.translatable("artneti.ipAddress"));
         this.ipAddress.setValue(this.be.getIp());
         this.addWidget(this.ipAddress);
-        this.addRenderableWidget(new Button(xCenter + 40,  yCenter + 90, 100, 20, Component.translatable("artneti.save"), button -> this.update()));
+        this.addRenderableWidget(Button.builder(Component.translatable("artneti.save"), button -> this.update())
+                .pos(xCenter + 40, yCenter + 90).size(100, 20).build());
     }
 
     private void update(){

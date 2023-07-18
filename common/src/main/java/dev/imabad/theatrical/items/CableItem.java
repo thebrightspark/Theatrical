@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class CableItem extends Item {
     public CableItem() {
-        super(new Item.Properties().tab(Theatrical.THEATRICAL_TAB));
+        super(new Item.Properties().arch$tab(Theatrical.THEATRICAL_TAB));
     }
 
     @Override

@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 public class Theatrical {
     public static final String MOD_ID = "theatrical";
     // Registering a new creative tab
-    public static final CreativeModeTab THEATRICAL_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "theatrical"), () ->
+    public static final CreativeTabRegistry.TabSupplier THEATRICAL_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "theatrical"), () ->
             new ItemStack(Items.ART_NET_INTERFACE.get()));
 
     public static final GlobalCableManager CABLES = new GlobalCableManager();

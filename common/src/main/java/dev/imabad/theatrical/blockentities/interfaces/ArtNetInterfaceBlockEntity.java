@@ -90,5 +90,6 @@ public class ArtNetInterfaceBlockEntity extends ClientSyncBlockEntity {
 
     public void setOwnerUUID(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
+        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 }

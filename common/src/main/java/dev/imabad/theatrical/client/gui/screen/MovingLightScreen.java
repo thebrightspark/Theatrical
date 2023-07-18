@@ -36,7 +36,7 @@ public class MovingLightScreen extends Screen {
         this.dmxAddress = new EditBox(this.font, xCenter + 62, yCenter + 25, 50, 10, (Component)Component.translatable("fixture.dmxStart"));
         this.dmxAddress.setValue(Integer.toString(this.be.getChannelStart()));
         this.addWidget(this.dmxAddress);
-        this.addRenderableWidget(new Button(xCenter + 40,  yCenter + 90, 100, 20, Component.translatable("artneti.save"), button -> this.update()));
+        this.addRenderableWidget(Button.builder(Component.translatable("artneti.save"), button -> this.update()).pos(xCenter + 40, yCenter + 90).size(100, 20).build());
     }
 
     private void update(){

@@ -1,6 +1,7 @@
 package dev.imabad.theatrical.graphs;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -57,7 +58,7 @@ public class DimensionMap {
         ListTag dimensionMap = tag.getList("DimensionMap", Tag.TAG_COMPOUND);
         for (Tag t : dimensionMap) {
             CompoundTag compoundTag = (CompoundTag) t;
-            map.knownDimensions.add(ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(compoundTag.getString("Id"))));
+            map.knownDimensions.add(ResourceKey.create(Registries.DIMENSION, new ResourceLocation(compoundTag.getString("Id"))));
         }
         return map;
     }
@@ -66,7 +67,7 @@ public class DimensionMap {
         DimensionMap dimensionMap = new DimensionMap();
         int length = buffer.readInt();
         for(int i = 0; i < length; i++){
-            dimensionMap.knownDimensions.add(ResourceKey.create(Registry.DIMENSION_REGISTRY, buffer.readResourceLocation()));
+            dimensionMap.knownDimensions.add(ResourceKey.create(Registries.DIMENSION, buffer.readResourceLocation()));
         }
         return dimensionMap;
     }

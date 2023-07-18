@@ -1,8 +1,5 @@
 package dev.imabad.theatrical.blocks;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
 import dev.imabad.theatrical.api.CableType;
 import dev.imabad.theatrical.blockentities.CableBlockEntity;
 import dev.imabad.theatrical.graphs.CableNodePos;
@@ -36,6 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.ticks.LevelTickAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -236,12 +234,7 @@ public class CableBlock extends Block implements EntityBlock {
 
     @NotNull
     private static BiFunction<Double, Boolean, Vec3> getOffsetPos(Vec3 center, Direction direction, Vec3 axe, boolean isNeg) {
-        return (distance, isPositive) -> modifyAxis(axe, direction).scale(isPositive ? 0 : isNeg ? -distance : distance).add(center);
-    }
-
-    public static Vec3 modifyAxis(Vec3 axe, Direction direction){
-        Vector3f xyzDegrees = direction.getRotation().toXYZDegrees();
-        return axe;
+        return (distance, isPositive) -> axe.scale(isPositive ? 0 : isNeg ? -distance : distance).add(center);
     }
 
     public static Vec3 modifyCenter(Vec3 center, Direction direction){
