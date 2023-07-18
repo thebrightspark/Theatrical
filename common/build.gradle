@@ -24,6 +24,9 @@ dependencies {
     //YAML
     implementation "org.yaml:snakeyaml:1.33"
     shadowCommon "org.yaml:snakeyaml:1.33"
+
+    //Illuminate
+    modImplementation files("../libs/illuminate-1.0.0.jar")
 }
 
 publishing {

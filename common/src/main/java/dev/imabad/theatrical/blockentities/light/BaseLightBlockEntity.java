@@ -5,6 +5,9 @@ import dev.imabad.theatrical.api.FixtureProvider;
 import dev.imabad.theatrical.blockentities.ClientSyncBlockEntity;
 import dev.imabad.theatrical.blocks.HangableBlock;
 import dev.imabad.theatrical.config.TheatricalConfig;
+import dev.imabad.theatrical.lights.FixtureLight;
+import net.dblsaiko.illuminate.client.IlluminateClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -31,6 +34,7 @@ public abstract class BaseLightBlockEntity extends ClientSyncBlockEntity impleme
     protected int prevTilt, prevPan, prevFocus, prevIntensity, prevRed, prevGreen, prevBlue = 0;
     private long tickTimer = 0;
     private BlockPos emissionBlock;
+    private FixtureLight fixtureLight;
 
     public BaseLightBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
@@ -76,6 +80,15 @@ public abstract class BaseLightBlockEntity extends ClientSyncBlockEntity impleme
         prevBlue = compoundTag.getInt("prevBlue");
     }
 
+    @Override
+    public void setLevel(Level level) {
+        super.setLevel(level);
+        if(level.isClientSide && fixtureLight == null){
+            fixtureLight = new FixtureLight(this);
+            Minecraft.getInstance().execute(() -> IlluminateClient.instance().addLight(fixtureLight));
+        }
+    }
+
     public double getDistance() {
         return distance;
     }
@@ -116,6 +129,8 @@ public abstract class BaseLightBlockEntity extends ClientSyncBlockEntity impleme
         }
         return hasChanged;
     }
+
+
 
     @Override
     public float getIntensity() {
@@ -298,6 +313,12 @@ public abstract class BaseLightBlockEntity extends ClientSyncBlockEntity impleme
             if(!level.getBlockState(emissionBlock).isAir() && level.getBlockState(emissionBlock).getBlock() instanceof LightBlock){
                 level.setBlock(emissionBlock, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                 emissionBlock = null;
+            }
+        }
+        if(level != null && level.isClientSide){
+            if(fixtureLight != null){
+                Minecraft.getInstance().execute(() -> IlluminateClient.instance().removeLight(fixtureLight));
+                fixtureLight = null;
             }
         }
         super.setRemoved();
